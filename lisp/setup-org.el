@@ -313,8 +313,7 @@ has no effect."
 		 :repo "minad/org-modern")
   :config
   (setq org-ellipsis "…"
-	org-modern-hide-stars nil
-	org-modern-hide-stars 'leading)
+	org-modern-hide-stars nil)
   (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
   
   (defun mk/org-modern-spacing ()
