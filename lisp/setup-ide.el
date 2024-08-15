@@ -111,11 +111,15 @@
     [remap project-shell] #'eat-project))
 
 (use-package buffer-env
+  :disabled
   :config
   (setq buffer-env-script-name '(".envrc" "flake.nix"))
   (add-hook 'hack-local-variables-hook #'buffer-env-update)
   (add-hook 'comint-mode-hook #'buffer-env-update))
 
+(use-package envrc
+  :config
+  (envrc-global-mode))
 (use-package paredit
   :config
   (dolist (h '(clojure-mode-hook cider-repl-mode-hook emacs-lisp-mode-hook scheme-mode-hook racket-mode-hook))
