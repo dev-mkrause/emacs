@@ -76,6 +76,9 @@
 
 (use-package emacs :ensure nil
   :config
+  (if (file-directory-p "/proc/acpi/button/lid")
+      (display-battery-mode 1))
+
   (setq display-line-numbers-type t
 	use-short-answers t
 	ring-bell-function 'ignore
