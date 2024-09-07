@@ -54,6 +54,8 @@
 
 (use-package tempel)
 
+(use-package vterm)
+
 (use-package eshell
   :ensure nil
   :config
@@ -102,13 +104,6 @@
 
   (setq eshell-prompt-regexp "^.* λ "
         eshell-prompt-function #'my/eshell-default-prompt-fn))
-
-(use-package eat
-  :config
-  (setq eat-kill-buffer-on-exit t)
-
-  (mk/keybind project-prefix-map
-    [remap project-shell] #'eat-project))
 
 (use-package buffer-env
   :disabled
