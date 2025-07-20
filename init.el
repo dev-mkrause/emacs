@@ -88,15 +88,14 @@
 
 (setq initial-major-mode 'org-mode
       initial-scratch-message (concat "#+title: Emacs Writing Studio\n"
-					"#+subtitle: Scratch Buffer\n\n"
-					"The text in this buffer is not saved "
-					"when exiting Emacs!\n\n"))
+					"#+subtitle: Scratch Buffer\n\n"))
 
 ;; Spacious padding
 
 (use-package spacious-padding
   :custom
   (line-spacing 3)
+  (spacious-padding-subtle-mode-line t)
   (spacious-padding-mode 1))
 
 ;; Modus and EF Themes
@@ -216,7 +215,7 @@
 (use-package flyspell
   :custom
   (ispell-program-name "hunspell")
-  (ispell-dictionary ews-hunspell-dictionaries)
+  (ispell-dictionary "en_US")
   (flyspell-mark-duplications-flag nil) ;; Writegood mode does this
   (org-fold-core-style 'overlays) ;; Fix Org mode bug
   :config
@@ -407,6 +406,7 @@
   (denote-sort-keywords t)
   (denote-link-description-function #'ews-denote-link-description-title-case)
   (denote-rename-buffer-mode 1)
+  (denote-prompts '(title keywords signature))
   :hook
   (dired-mode . denote-dired-mode)
   :custom-face
@@ -658,6 +658,8 @@
 
 (use-package org
   :custom
+  (org-agenda-files '("~/Documents/notes/20250716T102758--agenda__para.org"))
+  (org-agenda-prefix-format '((agenda . " %?-12t% s") (timeline . " % s") (todo . " ") (tags . " ") (search . " ")))
   (org-agenda-custom-commands
    '(("e" "Agenda, next actions and waiting"
       ((agenda "" ((org-agenda-overriding-header "Next three days:")
@@ -687,7 +689,9 @@
 
 (use-package dired
   :ensure nil
-  :hook (dired-mode . dired-omit-mode)
+  :config
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+  :hook ((dired-mode . dired-omit-mode))
   :bind (:map dired-mode-map
               ( "."     . dired-omit-mode))
   :custom (dired-omit-files "^\\.[a-zA-Z0-9]+"))
@@ -758,3 +762,17 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((dot . t)))
+
+;; Custom
+(set-frame-font "UbuntuMono-12" nil t)
+
+(use-package embark
+  :bind
+  (("C-." . embark-act)))
+
+(use-package magit)
+
+(use-package elixir-mode)
+
+(use-package eglot
+  :ensure nil)
