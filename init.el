@@ -382,6 +382,7 @@
   (("C-c c" . org-capture)
    ("C-c l" . org-store-link))
   :custom
+  (org-default-notes-file "~/Dropbox/notes.org")
   (org-capture-templates
    '(("f" "Fleeting note"
       item
@@ -403,6 +404,8 @@
 (use-package denote
   :defer t
   :custom
+  (denote-directory "~/Dropbox/zettelkasten")
+  (ews-bibtex-files `(,(expand-file-name "20250726T131157--library.bib" denote-directory)))
   (denote-sort-keywords t)
   (denote-link-description-function #'ews-denote-link-description-title-case)
   (denote-rename-buffer-mode 1)
@@ -764,7 +767,12 @@
  '((dot . t)))
 
 ;; Custom
-(set-frame-font "UbuntuMono-12" nil t)
+(cond
+ ((eq system-type 'windows-nt)
+  (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
+  (set-frame-font "Consolas-12" nil t))
+ ((eq system-type 'gnu/linux)
+  (set-frame-font "UbuntuMono-12" nil t)))
 
 (use-package embark
   :bind
